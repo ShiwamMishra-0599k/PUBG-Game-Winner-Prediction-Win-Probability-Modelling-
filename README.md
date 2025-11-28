@@ -1,101 +1,129 @@
-# Walking & Running Classification — Motion Sensor ML Model
-This project focuses on building an end-to-end machine learning system that classifies whether a user is walking or running using raw motion-sensor data.
-The dataset contains accelerometer and gyroscope readings captured from a wearable device.
-The project includes data exploration, feature engineering, model building, model comparison, and challenge resolution, all in a single Jupyter Notebook.
+# PUBG Game Winner Prediction — Win Probability Modelling
+
+This project aims to predict the win percentage of PUBG players based on their in-game performance statistics.
+Using machine learning, the project identifies the most important variables influencing win probability and evaluates multiple models to determine the best one for real-world deployment.
 
 # Tech Stack
-Programming & Libraries
-- Python: Pandas, NumPy, Matplotlib, Scikit-learn
-- Machine Learning: Logistic Regression, Random Forest, KNN, SVM, Multi-layer Neural Networks
-- Environment: Jupyter Notebook
-
-Core Techniques
-- Sensor data preprocessing
-- Feature engineering
-- Activity segmentation
--Model training & comparison
-- Evaluation metrics (Precision, Recall, F1-score, ROC-AUC)
+## Programming
+- Python (Pandas, NumPy, Scikit-learn)
+- Jupyter Notebook
+- Machine Learning
+- Linear Regression
+- Random Forest Regressor
+- XGBoost
+- Decision Tree
+- Ensemble Techniques
 
 #Data Source
 
 Dataset Link (Provided by Rubixe):
-https://d3ilbtxij3aepc.cloudfront.net/projects/CDS-Capstone-Projects/PRCP-1013-WalkRunClass.zip
+https://d3ilbtxij3aepc.cloudfront.net/projects/CDS-Capstone-Projects/PRCP-1012-GameWinnerPred.zip
 
-#Attributes (11 Total)
-- date
-- time
-- username
-- wrist
-- activity (target variable)
-- acceleration_x, acceleration_y, acceleration_z
-- gyro_x, gyro_y, gyro_z
+## Dataset Includes
+29 attributes such as:
+1.	Id
+2.	groupId
+3.	matchId
+4.	assists
+5.	boosts
+6.	damageDealt
+7.	DBNOs
+8.	headshotKills
+9.	heals
+10.	killPlace
+11.	killPoints
+12.	kills
+13.	killStreaks
+14.	longestKill
+15.	matchDuration
+16.	matchType
+17.	maxPlace
+18.	maxPlace
+19.	rankPoints
+20.	revives
+21.	rideDistance
+22.	roadKills
+23.	swimDistance
+24.	teamKills
+25.	vehicleDestroys
+26.	walkDistance
+27.	weaponsAcquired
+28.	winPoints
+29.	winPlacePerc
+
 
 # Problem Statement
-The goal of this project is to create a predictive machine learning model that accurately classifies whether a user is walking or running based on motion-sensor readings.
+## Objective - To predict the win probability (winPlacePerc) of a PUBG player using match statistics and behavioral patterns.
 
 # Task Breakdown
-- Task 1: Prepare a complete exploratory data analysis (EDA) report.
-- Task 2: Build predictive models to classify walking vs running.
-- Task 3: Compare models and select the best for production.
-- Task 4: Document challenges faced and strategies used.
+- Task 1: Complete EDA report
+- Task 2: Build ML models to predict winPlacePerc
+- Task 3: Compare model performance & identify best model
+- Task 4: Document challenges and mitigation techniques
 
 # Goal of the Project
-- To classify human physical activity using wearable sensor data.
-- To identify patterns in accelerometer and gyroscope readings.
-- To evaluate multiple ML models and recommend the best-performing one.
-- To produce actionable insights about movement behavior.
+- Understand PUBG player performance metrics
+- Identify what makes players win
+- Build a predictive model to estimate win probability
+- Evaluate performance of different ML algorithms
+- Provide insights for game strategy optimization
 
 # Solution Approach
-## ✔ Step 1: Data Cleaning & Preprocessing
-- Removed missing values and inconsistent timestamps
-- Merged date/time columns
-- Normalized high-variance sensor readings
-- Handled sensor noise using smoothing techniques
+## ✔ Step 1: Data Cleaning
+- Removed duplicates
+- andled missing values (mean/median imputation)
+- Eliminated impossible values (e.g., negative damage, extreme outliers)
+- Managed skewed numeric data using transformations
 
-## ✔ Step 2: Exploratory Data Analysis
-- Motion signal behavior visualized over time
-- Distribution analysis of acceleration and gyroscope axes
-- Activity-based segmentation (walking vs running)
+## ✔ Step 2: EDA & KPI Analysis
+- Kill distribution analysis
+- Movement metrics (walk/ride/swim distance)
+- Correlation matrix
+- Match type performance
+- Ranking behavior
 
 ## ✔ Step 3: Feature Engineering
-Created new features such as:
-- Sensor magnitude (acceleration, gyroscope)
-- Rolling averages
-- Variability metrics
-- Peak detection-based features
+Created new features:
+- CombatScore (kills + damageDealt)
+- MobilityScore (walkDistance + rideDistance)
+- SupportScore (heals + boosts)
+- SurvivalTime metrics
 
 ## ✔ Step 4: Model Development
-- Multi-layer neural networks
-- Logistic Regression
+Tested algorithms:
+- Linear Regression
 - Random Forest
-- LSTM Deep Learning Model
-- MLP
+- XGBoost
+- Decision Tree
+- Ensemble Models
 
-## ✔ Step 5: Model Evaluation
-- Evaluated using:
-- Precision
-- Recall
-- F1 Score
-- ROC Curve & AUC Score
+## ✔ Step 5: Evaluation
+Evaluated with:
+- R2 Score
+- Mean_Squared_Error
+- Mean_Absolute_Error
+- Cross-validation performance
 
 # Key Insights & Findings
-- Running signals showed higher acceleration and gyroscope variability.
-- Neural Networks achieved the highest accuracy due to capturing nonlinear movement patterns.
-- Classical models (LR, KNN) performed well but struggled with overlapping boundaries.
+- walkDistance is the strongest predictor of win probability.
+- Aggressive players (high damage & kills) tend to rank higher.
+- Mobility significantly impacts survival.
+- Random Forest & XGBoost delivered the best accuracy and most stable performance.
 
 # Challenges & Solutions
-| Challenge                 | Solution                                                 |
-| ------------------------- | -------------------------------------------------------- |
-| Sensor noise              | Applied smoothing & normalization                        |
-| Class imbalance           | Used stratified train-test split                         |
-| High variance in readings | Scaled using StandardScaler                              |
-| Overlapping patterns      | Added engineered features like magnitude & rolling stats |
-| Missing timestamps        | Interpolation + validation rules                         |
+
+| Challenge                            | Solution                                  |
+| ------------------------------------ | ----------------------------------------- |
+| Heavy outliers (extreme match stats) | Applied winsorization & robust scaling    |
+| Missing winPlacePerc values          | Imputed using median grouped by matchType |
+| High dimensionality                  | Feature selection & VIF analysis          |
+| Skewed numeric distribution          | Log transformation & normalization        |
+| Model overfitting                    | Cross-validation + regularization         |
+
 
 # Impact & Applications
-- Wearable device activity recognition
-- Fitness tracking apps
-- Physiotherapy monitoring
-- Real-time gait analysis
-- Human motion understanding for AI systems
-
+- Real-time win probability estimation
+- Player performance evaluation
+- Esports analytics & strategy optimization
+- AI-powered gaming insights
+- Player matchmaking improvement
